@@ -24,20 +24,28 @@ def match_status_place(animal_etat, nouveau_lieu_name):
     else:
         return False
 
+def update_availability(place):
+    if place.id_equip == "litière":
+        place.disponibilite == "libre"
+    elif place.id_equip in ["roue", "mangeoire", "nid"]:
+        place.disponibilite == "occupé"
+    place.save()
+
 def update_status(animal, place):
     # Case Mangeoire
-    if place == "mangeoire":
+    if place.id_equip == "mangeoire":
         animal.etat = "repus"
     # Case Roue
-    elif place == "roue":
+    elif place.id_equip == "roue":
         animal.etat = "fatigué"
     #Case Litiere
-    elif place == "litière":
+    elif place.id_equip == "litière":
         animal.etat = "affamé"
     # Case Nid
-    elif place == "nid":
+    elif place.id_equip == "nid":
         animal.etat = "endormi"
     animal.save()
+    update_availability(place)
 
 def post_detail(request, id_animal):
     animal = get_object_or_404(Animal, id_animal=id_animal)
@@ -52,15 +60,9 @@ def post_detail(request, id_animal):
         if nouveau_lieu.disponibilite == "libre" and match_status_place(animal.etat, nouveau_lieu.id_equip):
             error = False
             ancien_lieu.disponibilite = "libre"
-            update_status(animal, nouveau_lieu.id_equip)
             ancien_lieu.save()
             form.save() 
-            if nouveau_lieu.id_equip == "litière":
-                nouveau_lieu.disponibilite == "libre"
-                nouveau_lieu.save()
-            elif nouveau_lieu.id_equip in ["roue", "mangeoire", "nid"]:
-                nouveau_lieu.disponibilite == "occupé"
-                nouveau_lieu.save()
+            update_status(animal, nouveau_lieu)
             message = "La modification a été réalisée avec succès"
         # Case error
         else:
@@ -68,7 +70,7 @@ def post_detail(request, id_animal):
             error = True
         return render(request,
                   'blog/post_detail.html',
-                  {'animal': animal, 'message': message, 'error': error, 'lieu': ancien_lieu, 'form': form})
+                  {'animal': animal, 'message': message, 'error': error, 'lieu': ancien_lieu, 'new_lieu':nouveau_lieu, 'form': form})
     else:
         form = MoveForm()
         return render(request,
