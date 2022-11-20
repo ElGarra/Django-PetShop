@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="navbar">
+    <a href="{% url 'post_list' %}" class="active">Home 🏠</a>
+    <a href="https://github.com/ElGarra/Django-PetShop.git" class="right">More</a>
+</div>
+
+<!-- <h1>
+    <a href="/">{{ animal.id_animal }}</a>
+</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        <b> Changer : </b> {{ form.as_ul }}
+        <button type="submit" class="btn btn-outline-light">OK</button>
+        {% if message != ''%}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+        {% endif %}
+        <a href="{% url 'post_list' %}">Back</a>
+    </form> -->
+<div class="fakediv">
+    <form method="POST" class="post-form">{% csrf_token %}
+        <b> Changer : </b> {{ form.as_ul }}
+    <button class="button button5" type="submit">Ok</button>
+    <br>
+    {% if message == "C'est pas posible de faire la modification" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+    {% elif message == "La modification a été réalisée avec succès" %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+    {% endif %}
+
+
+    <button class="button button5"><a href="{% url 'post_list' %}">Back</a></button>
+    </form>
+</div>
+ 
+{% endblock %}
+

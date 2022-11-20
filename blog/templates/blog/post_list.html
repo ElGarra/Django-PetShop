@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<!-- {% for animal in animals %}
+        <h2><a href="{% url 'post_detail' id_animal=animal.id_animal %}">{{ animal.id_animal }}</a></h2>
+        <p>type: {{ animal.type }}</p>
+        <p>race: {{ animal.race |linebreaksbr }}</p>
+        <p>etat: {{ animal.etat |linebreaksbr }}</p>
+        <p>lieu: {{ animal.lieu |linebreaksbr }}</p>
+{% endfor %} -->
+<div class="navbar">
+        <a href="" class="active">Home 🏠</a>
+        <a href="https://github.com/ElGarra/Django-PetShop.git" class="right">More</a>
+      </div>
+
+<div class="row">
+        <div class="side">
+          <h2>ANIMAUX DISPONIBLES</h2>
+          {% for animal in animals %}
+                <h3>{{ animal.id_animal }}</h3>
+                <img src="{{ animal.photo }}" class="center">
+                <h5><b>type:</b> <i>{{ animal.type }}</i></h5>
+                <h5><b>race:</b> <i>{{ animal.race |linebreaksbr }}</i></h5>
+                <h5><b>etat:</b> <i>{{ animal.etat |linebreaksbr }}</i></h5>
+                <h5><b>lieu:</b> <i>{{ animal.lieu |linebreaksbr }}</i><h5>
+                <button class="button button5"><a href="{% url 'post_detail' id_animal=animal.id_animal %}">changer lieu</a></button>
+                <hr>
+          {% endfor %}
+        </div>
+        <div class="main">
+          <h2>ÉQUIPEMENT DISPONIBLE</h2>
+          {% for equip in equipement %}
+                <h3>{{ equip.id_equip }}</h3>
+                <img src="{{ equip.photo }}" class="center">
+                {% if equip.disponibilite == 'libre' %}
+                        <h4 style="color:green;"><b>disponibilite: </b><i>{{ equip.disponibilite |linebreaksbr }}</i></h4>
+                {% endif %}
+                {% if equip.disponibilite == 'occupé' %}
+                        <h4 style="color:red;"><b>disponibilite: </b><i>{{ equip.disponibilite |linebreaksbr }}</i></h4>
+                {% endif %}
+                <hr>
+          {% endfor %}
+          <h2>NOS PARTENAIRES</h2>
+          <br>
+          <img src="https://i.ibb.co/y8V20JY/maxizoo.jpg" class="center">
+          <h3>MAXI ZOO</h3>
+          <br>
+          <img src="https://i.ibb.co/SdD2ZT4/OM.jpg" class="center">
+          <h3>OLYMPIQUE DE MARSEILLE</h3>
+          <br>
+          <img src="https://i.ibb.co/rwt0dVq/uber.png" class="center">
+          <h3>UBER EATS</h3>
+          <br>
+      </div>
+</div>
+{% endblock %}

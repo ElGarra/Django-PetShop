@@ -1,0 +1,27 @@
+{% load static %}
+<html>
+    <head>
+        <title>L'animalerie de Marseille</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>Bienvenue à l'animalerie de Marseille</h1>
+            <p> La <b>première</b> animalerie de la région Provence-Alpes-Côte d'Azur.</p>
+          </div>
+
+
+            {% block content %}
+            {% endblock %}
+
+    </body>
+    <footer>
+        <div class="footer">
+            <p>Réalisé avec ❤️ par <a href="https://github.com/ElGarra"><b>Elgarra</b></a> pour our le cours "Data driven programming" de <a href="https://centrale-marseille.fr"><b>l'Ecole Centrale de Marseille</b></a>.</p>
+          </div>
+    </footer>
+</html>
