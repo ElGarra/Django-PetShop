@@ -22,8 +22,12 @@
         <a href="{% url 'post_list' %}">Back</a>
     </form> -->
 <div class="fakediv">
+    <h3>{{ animal.id_animal }}</h3>
+    <br>
+    <img src="{{ animal.photo }}" class="center">
+    <br>
     <form method="POST" class="post-form">{% csrf_token %}
-        <b> Changer : </b> {{ form.as_ul }}
+       <b> Changer  </b> {{ form.as_ul }}
     <button class="button button5" type="submit">Ok</button>
     <br>
     {% if message == "C'est pas posible de faire la modification" %}
@@ -35,8 +39,7 @@
             {{message}}
         </div>
     {% endif %}
-
-
+    <br>
     <button class="button button5"><a href="{% url 'post_list' %}">Back</a></button>
     </form>
 </div>

@@ -26,9 +26,9 @@ def match_status_place(animal_etat, nouveau_lieu_name):
 
 def update_availability(place):
     if place.id_equip == "litière":
-        place.disponibilite == "libre"
+        place.disponibilite = "libre"
     elif place.id_equip in ["roue", "mangeoire", "nid"]:
-        place.disponibilite == "occupé"
+        place.disponibilite = "occupé"
     place.save()
 
 def update_status(animal, place):
@@ -45,7 +45,7 @@ def update_status(animal, place):
     elif place.id_equip == "nid":
         animal.etat = "endormi"
     animal.save()
-    update_availability(place)
+
 
 def post_detail(request, id_animal):
     animal = get_object_or_404(Animal, id_animal=id_animal)
@@ -60,6 +60,7 @@ def post_detail(request, id_animal):
         if nouveau_lieu.disponibilite == "libre" and match_status_place(animal.etat, nouveau_lieu.id_equip):
             error = False
             ancien_lieu.disponibilite = "libre"
+            update_availability(nouveau_lieu)
             ancien_lieu.save()
             form.save() 
             update_status(animal, nouveau_lieu)
